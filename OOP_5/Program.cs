@@ -197,12 +197,17 @@
             {
                 return $"Tracking Code: {TrackingCode}\n";
             }
-        }
-        #endregion
+            //Copy shipment method
+            public Shipment CopyShipment()
+            {
+            return new Shipment(this.trackingCode, this.description, this.weight, this.deliveryFee);
+            }
+    }
+    #endregion
 
         #region Standard Shipment Class(Child Class)
-        //Standard Shipment Class(Child Class)
-        public class StandardShipment : Shipment, ITrackable, IInsurable
+    //Standard Shipment Class(Child Class)
+    public class StandardShipment : Shipment, ITrackable, IInsurable
         {
             //Chaining Constructor
             public StandardShipment(string TrackingCode, string Description, int Weight, decimal DeliveryFee) : base(TrackingCode, Description, Weight, DeliveryFee)
@@ -531,84 +536,84 @@
                 ////c.Assign driver to delivery center
                 //center.AssignedDriver = driver.name;
                 // a. Create Standard Shipment
-                StandardShipment standardShipment =
-                    new StandardShipment(
-                        "SH001",
-                        "Laptop",
-                        2,
-                        100.0m
-                    );
+                //StandardShipment standardShipment =
+                //    new StandardShipment(
+                //        "SH001",
+                //        "Laptop",
+                //        2,
+                //        100.0m
+                //    );
 
-                // b. Create Express Shipment
-                ExpressShipment expressShipment =
-                   new ExpressShipment(
-                     "SH002",
-                     "Laptop",
-                     2,
-                     100.0m,
-                     30.0m
-                   );
-                // c. Create International Shipment
-                InternationalShipment internationalShipment =
-                    new InternationalShipment(
-                      "SH003",
-                      "Laptop",
-                       2,
-                       100.0m,
-                       30.0m,
-                      "Germany"
-                    );
+                //// b. Create Express Shipment
+                //ExpressShipment expressShipment =
+                //   new ExpressShipment(
+                //     "SH002",
+                //     "Laptop",
+                //     2,
+                //     100.0m,
+                //     30.0m
+                //   );
+                //// c. Create International Shipment
+                //InternationalShipment internationalShipment =
+                //    new InternationalShipment(
+                //      "SH003",
+                //      "Laptop",
+                //       2,
+                //       100.0m,
+                //       30.0m,
+                //      "Germany"
+                //    );
 
-                // d. Add shipments to Delivery Center
-                DeliveryCenter center = new DeliveryCenter();
-                center.AddShipment(standardShipment);
-                center.AddShipment(expressShipment);
-                center.AddShipment(internationalShipment);
-                //e. Print all shiipment details
-                for (int i = 0; i < 20; i++)
-                {
-                    if (center[i] != null)
-                    {
-                        DeliveryHelper.PrintShipmentDetails(center[i]);
-                        Console.WriteLine("------------------------------------");
-                    }
-                }
-                //f. Print tracking status for each shipment
-                for (int i = 0; i < 20; i++)
-                {
-                    if (center[i] != null)
-                    {
-                        center.PrintShipment(center[i] as ITrackable);
+                //// d. Add shipments to Delivery Center
+                //DeliveryCenter center = new DeliveryCenter();
+                //center.AddShipment(standardShipment);
+                //center.AddShipment(expressShipment);
+                //center.AddShipment(internationalShipment);
+                ////e. Print all shiipment details
+                //for (int i = 0; i < 20; i++)
+                //{
+                //    if (center[i] != null)
+                //    {
+                //        DeliveryHelper.PrintShipmentDetails(center[i]);
+                //        Console.WriteLine("------------------------------------");
+                //    }
+                //}
+                ////f. Print tracking status for each shipment
+                //for (int i = 0; i < 20; i++)
+                //{
+                //    if (center[i] != null)
+                //    {
+                //        center.PrintShipment(center[i] as ITrackable);
 
-                    }
-                }
-                //f. Print tracking status for each shipment
-                for (int i = 0; i < 20; i++)
-                {
-                    if (center[i] != null)
-                    {
-                        center.PrintShipment(center[i] as IInsurable);
+                //    }
+                //}
+                ////f. Print tracking status for each shipment
+                //for (int i = 0; i < 20; i++)
+                //{
+                //    if (center[i] != null)
+                //    {
+                //        center.PrintShipment(center[i] as IInsurable);
 
-                    }
-                }
-                ITrackable[] trackableShipments = new ITrackable[] { standardShipment, expressShipment, internationalShipment };
-                for (int i = 0; i < trackableShipments.Length; i++)
-                {
-                    if (trackableShipments[i] != null)
-                    {
+                //    }
+                //}
+                //ITrackable[] trackableShipments = new ITrackable[] { standardShipment, expressShipment, internationalShipment };
+                //for (int i = 0; i < trackableShipments.Length; i++)
+                //{
+                //    if (trackableShipments[i] != null)
+                //    {
 
-                        Console.WriteLine(trackableShipments[i].GetTrackingStatus());
-                    }
-                }
-                IInsurable[] insurableShipments = new IInsurable[] { standardShipment, expressShipment, internationalShipment };
-                for (int i = 0; i < insurableShipments.Length; i++)
-                {
-                    if (insurableShipments[i] != null)
-                    {
-                        Console.WriteLine(insurableShipments[i].CalculateInsurance());
+                //        Console.WriteLine(trackableShipments[i].GetTrackingStatus());
+                //    }
+                //}
+                //IInsurable[] insurableShipments = new IInsurable[] { standardShipment, expressShipment, internationalShipment };
+                //for (int i = 0; i < insurableShipments.Length; i++)
+                //{
+                //    if (insurableShipments[i] != null)
+                //    {
+                //        Console.WriteLine(insurableShipments[i].CalculateInsurance());
 
-                    }
-                }
+                //    }
+                //}
 
 
 
@@ -683,8 +688,19 @@
                 //// 9. Print remaining shipments
                 //Console.WriteLine("\n========== REMAINING SHIPMENTS ==========");
                 //center.PrintAllShipments();
-            }
+                Shipment shipment1 = new StandardShipment("STD-001", "Books", 2, 50.0m);
+                //create a copy of the shipment using the CopyShipment method
+                Shipment shipment2 = shipment1.CopyShipment();
+                Console.WriteLine($"Original Shipment: {shipment1.PrintShipmentDetails()}");
+                Console.WriteLine($"Copied Shipment: {shipment2.PrintShipmentDetails()}");
+                shipment2.TrackingCode = "STD-002";
+                Console.WriteLine($"After changing the tracking code of the copied shipment: {shipment2.TrackingCode}");
+                Console.WriteLine($"After changing the tracking code of the copied shipment: {shipment1.TrackingCode}");
+
+
+
         }
+    }
         #endregion
 
         #endregion
