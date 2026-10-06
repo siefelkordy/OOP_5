@@ -208,8 +208,15 @@
             {
             return (Shipment)this.MemberwiseClone();
             }
+            //Deep Copy Method
+            public Shipment DeepCopy()
+            {
+            Shipment copy = (Shipment)this.MemberwiseClone();
+            copy.Destination = new DeliveryAddress(this.Destination.City, this.Destination.Street, this.Destination.BuildingNumber);
+            return copy;
+            }
 
-    }
+        }
     #endregion
 
         #region Standard Shipment Class(Child Class)
@@ -528,197 +535,206 @@
         {
             static void Main(string[] args)
             {
-                ////a.Create a Driver
-                //Console.WriteLine("Enter Driver Name:");
-                //string driverName = Console.ReadLine();
+            ////a.Create a Driver
+            //Console.WriteLine("Enter Driver Name:");
+            //string driverName = Console.ReadLine();
 
-                //Driver driver = new Driver(driverName);
-                //// b. Create a DeliveryCenter
-                //Console.WriteLine("Enter Delivery Center Name:");
-                //string centerName = Console.ReadLine();
+            //Driver driver = new Driver(driverName);
+            //// b. Create a DeliveryCenter
+            //Console.WriteLine("Enter Delivery Center Name:");
+            //string centerName = Console.ReadLine();
 
-                //DeliveryCenter center = new DeliveryCenter();
-                //center.CenterName = centerName;
+            //DeliveryCenter center = new DeliveryCenter();
+            //center.CenterName = centerName;
 
-                ////c.Assign driver to delivery center
-                //center.AssignedDriver = driver.name;
-                // a. Create Standard Shipment
-                //StandardShipment standardShipment =
-                //    new StandardShipment(
-                //        "SH001",
-                //        "Laptop",
-                //        2,
-                //        100.0m
-                //    );
+            ////c.Assign driver to delivery center
+            //center.AssignedDriver = driver.name;
+            // a. Create Standard Shipment
+            //StandardShipment standardShipment =
+            //    new StandardShipment(
+            //        "SH001",
+            //        "Laptop",
+            //        2,
+            //        100.0m
+            //    );
 
-                //// b. Create Express Shipment
-                //ExpressShipment expressShipment =
-                //   new ExpressShipment(
-                //     "SH002",
-                //     "Laptop",
-                //     2,
-                //     100.0m,
-                //     30.0m
-                //   );
-                //// c. Create International Shipment
-                //InternationalShipment internationalShipment =
-                //    new InternationalShipment(
-                //      "SH003",
-                //      "Laptop",
-                //       2,
-                //       100.0m,
-                //       30.0m,
-                //      "Germany"
-                //    );
+            //// b. Create Express Shipment
+            //ExpressShipment expressShipment =
+            //   new ExpressShipment(
+            //     "SH002",
+            //     "Laptop",
+            //     2,
+            //     100.0m,
+            //     30.0m
+            //   );
+            //// c. Create International Shipment
+            //InternationalShipment internationalShipment =
+            //    new InternationalShipment(
+            //      "SH003",
+            //      "Laptop",
+            //       2,
+            //       100.0m,
+            //       30.0m,
+            //      "Germany"
+            //    );
 
-                //// d. Add shipments to Delivery Center
-                //DeliveryCenter center = new DeliveryCenter();
-                //center.AddShipment(standardShipment);
-                //center.AddShipment(expressShipment);
-                //center.AddShipment(internationalShipment);
-                ////e. Print all shiipment details
-                //for (int i = 0; i < 20; i++)
-                //{
-                //    if (center[i] != null)
-                //    {
-                //        DeliveryHelper.PrintShipmentDetails(center[i]);
-                //        Console.WriteLine("------------------------------------");
-                //    }
-                //}
-                ////f. Print tracking status for each shipment
-                //for (int i = 0; i < 20; i++)
-                //{
-                //    if (center[i] != null)
-                //    {
-                //        center.PrintShipment(center[i] as ITrackable);
+            //// d. Add shipments to Delivery Center
+            //DeliveryCenter center = new DeliveryCenter();
+            //center.AddShipment(standardShipment);
+            //center.AddShipment(expressShipment);
+            //center.AddShipment(internationalShipment);
+            ////e. Print all shiipment details
+            //for (int i = 0; i < 20; i++)
+            //{
+            //    if (center[i] != null)
+            //    {
+            //        DeliveryHelper.PrintShipmentDetails(center[i]);
+            //        Console.WriteLine("------------------------------------");
+            //    }
+            //}
+            ////f. Print tracking status for each shipment
+            //for (int i = 0; i < 20; i++)
+            //{
+            //    if (center[i] != null)
+            //    {
+            //        center.PrintShipment(center[i] as ITrackable);
 
-                //    }
-                //}
-                ////f. Print tracking status for each shipment
-                //for (int i = 0; i < 20; i++)
-                //{
-                //    if (center[i] != null)
-                //    {
-                //        center.PrintShipment(center[i] as IInsurable);
+            //    }
+            //}
+            ////f. Print tracking status for each shipment
+            //for (int i = 0; i < 20; i++)
+            //{
+            //    if (center[i] != null)
+            //    {
+            //        center.PrintShipment(center[i] as IInsurable);
 
-                //    }
-                //}
-                //ITrackable[] trackableShipments = new ITrackable[] { standardShipment, expressShipment, internationalShipment };
-                //for (int i = 0; i < trackableShipments.Length; i++)
-                //{
-                //    if (trackableShipments[i] != null)
-                //    {
+            //    }
+            //}
+            //ITrackable[] trackableShipments = new ITrackable[] { standardShipment, expressShipment, internationalShipment };
+            //for (int i = 0; i < trackableShipments.Length; i++)
+            //{
+            //    if (trackableShipments[i] != null)
+            //    {
 
-                //        Console.WriteLine(trackableShipments[i].GetTrackingStatus());
-                //    }
-                //}
-                //IInsurable[] insurableShipments = new IInsurable[] { standardShipment, expressShipment, internationalShipment };
-                //for (int i = 0; i < insurableShipments.Length; i++)
-                //{
-                //    if (insurableShipments[i] != null)
-                //    {
-                //        Console.WriteLine(insurableShipments[i].CalculateInsurance());
+            //        Console.WriteLine(trackableShipments[i].GetTrackingStatus());
+            //    }
+            //}
+            //IInsurable[] insurableShipments = new IInsurable[] { standardShipment, expressShipment, internationalShipment };
+            //for (int i = 0; i < insurableShipments.Length; i++)
+            //{
+            //    if (insurableShipments[i] != null)
+            //    {
+            //        Console.WriteLine(insurableShipments[i].CalculateInsurance());
 
-                //    }
-                //}
-
-
-
-                //// h & i. Print all shipments 
-                //Console.WriteLine("------------------------------------");
-                //Console.WriteLine($"Delivery Center: {center.CenterName}");
-                //Console.WriteLine("------------------------------------");
-                //Console.WriteLine($"\nDriver Name: {driver.name}");
-                //Console.WriteLine("------------------------------------");
-                //center.PrintAllShipments();
-
-                ////j. demonstrate both versions of update weight
-                //int updatedWeight = 5;
-                //standardShipment.UpdateDeilveryFee(20.5m);
-                //Console.WriteLine("------------------------------------");
-                //Console.WriteLine($"Original Weight : {expressShipment.Weight} KG");
-                //expressShipment.Weight = updatedWeight;
-                //expressShipment.UpdateDeilveryFee(50.0m, updatedWeight);
-                //Console.WriteLine($"Updated Weight : {expressShipment.Weight} KG");
-                //Console.WriteLine($"Updated Weight after Packing : {expressShipment.Weight + 0.5} KG");
-
-                //k. Build a Shipment[] holding mixed types and print all of them in a loop.
-                //    Shipment[] mixedShipments = new Shipment[]
-                //{
-                //new StandardShipment("STD-101", "Textbooks", 3, 45.0m),
-                //new ExpressShipment("EXP-202", "Smartphone", 1, 80.0m, 25.0m),
-                //new InternationalShipment("INT-303", "Machine Parts", 12, 200.0m, 75.0m, "Canada")
-                //};
-                //    Console.WriteLine("========== MIXED SHIPMENTS ==========");
-                //    foreach (Shipment s in mixedShipments)
-                //    {
-                //        if (s != null)
-                //        {
-                //            Console.WriteLine(s.PrintShipmentDetails());
-                //            Console.WriteLine("------------------------------------------");
-                //        }
-                //    }
-
-                //// 7. Search using the tracking-code indexer
-                //Console.WriteLine("\nEnter Tracking Code to Search:");
-                //string searchCode = Console.ReadLine();
-
-                //Shipment foundShipment = center[searchCode];
-
-                //if (foundShipment != null)
-                //{
-                //    Console.WriteLine("\nShipment Found:");
-                //    Console.WriteLine(foundShipment.PrintShipmentDetails());
-                //}
-                //else
-                //{
-                //    Console.WriteLine("No Shipment Found!!");
-                //}
+            //    }
+            //}
 
 
-                //// 8. Remove shipment
-                //Console.WriteLine("\nEnter Tracking Code to Remove:");
-                //string removeCode = Console.ReadLine();
 
-                //bool removed = center.RemoveShipment(removeCode);
+            //// h & i. Print all shipments 
+            //Console.WriteLine("------------------------------------");
+            //Console.WriteLine($"Delivery Center: {center.CenterName}");
+            //Console.WriteLine("------------------------------------");
+            //Console.WriteLine($"\nDriver Name: {driver.name}");
+            //Console.WriteLine("------------------------------------");
+            //center.PrintAllShipments();
 
-                //if (removed)
-                //{
-                //    Console.WriteLine("Shipment Removed Successfully.");
-                //}
-                //else
-                //{
-                //    Console.WriteLine("Shipment Not Found.");
-                //}
+            ////j. demonstrate both versions of update weight
+            //int updatedWeight = 5;
+            //standardShipment.UpdateDeilveryFee(20.5m);
+            //Console.WriteLine("------------------------------------");
+            //Console.WriteLine($"Original Weight : {expressShipment.Weight} KG");
+            //expressShipment.Weight = updatedWeight;
+            //expressShipment.UpdateDeilveryFee(50.0m, updatedWeight);
+            //Console.WriteLine($"Updated Weight : {expressShipment.Weight} KG");
+            //Console.WriteLine($"Updated Weight after Packing : {expressShipment.Weight + 0.5} KG");
+
+            //k. Build a Shipment[] holding mixed types and print all of them in a loop.
+            //    Shipment[] mixedShipments = new Shipment[]
+            //{
+            //new StandardShipment("STD-101", "Textbooks", 3, 45.0m),
+            //new ExpressShipment("EXP-202", "Smartphone", 1, 80.0m, 25.0m),
+            //new InternationalShipment("INT-303", "Machine Parts", 12, 200.0m, 75.0m, "Canada")
+            //};
+            //    Console.WriteLine("========== MIXED SHIPMENTS ==========");
+            //    foreach (Shipment s in mixedShipments)
+            //    {
+            //        if (s != null)
+            //        {
+            //            Console.WriteLine(s.PrintShipmentDetails());
+            //            Console.WriteLine("------------------------------------------");
+            //        }
+            //    }
+
+            //// 7. Search using the tracking-code indexer
+            //Console.WriteLine("\nEnter Tracking Code to Search:");
+            //string searchCode = Console.ReadLine();
+
+            //Shipment foundShipment = center[searchCode];
+
+            //if (foundShipment != null)
+            //{
+            //    Console.WriteLine("\nShipment Found:");
+            //    Console.WriteLine(foundShipment.PrintShipmentDetails());
+            //}
+            //else
+            //{
+            //    Console.WriteLine("No Shipment Found!!");
+            //}
 
 
-                //// 9. Print remaining shipments
-                //Console.WriteLine("\n========== REMAINING SHIPMENTS ==========");
-                //center.PrintAllShipments();
-                //Shipment shipment1 = new StandardShipment("STD-001", "Books", 2, 50.0m);
-                ////create a copy of the shipment using the CopyShipment method
-                //Shipment shipment2 = shipment1.CopyShipment();
-                //Console.WriteLine($"Original Shipment: {shipment1.PrintShipmentDetails()}");
-                //Console.WriteLine($"Copied Shipment: {shipment2.PrintShipmentDetails()}");
-                //shipment2.TrackingCode = "STD-002";
-                //Console.WriteLine($"After changing the tracking code of the copied shipment: {shipment2.TrackingCode}");
-                //Console.WriteLine($"After changing the tracking code of the copied shipment: {shipment1.TrackingCode}");
-                
-            
-                Shipment shipment1 = new StandardShipment("STD-001", "Books", 2, 50.0m);
-                shipment1.Destination = new DeliveryAddress("Los Angeles", "Sunset Blvd", 123);
-                //create a shallow copy of the shipment using the ShallowCopy method
-                Shipment shipment2 = shipment1.ShallowCopy();
-                Console.WriteLine(ReferenceEquals(shipment1, shipment2)); // Output: False
-                Console.WriteLine(ReferenceEquals(shipment1.Destination, shipment2.Destination)); // Output: True
-                Console.WriteLine($"Original Shipment Destination: {shipment1.Destination.GetFullAddress()}");
-                Console.WriteLine($"Copied Shipment Destination: {shipment2.Destination.GetFullAddress()}");
-                shipment2.Destination.City = "San Francisco";
-                shipment2.Destination.BuildingNumber = 456;
-                shipment2.Destination.Street = "Market St";
-                Console.WriteLine($"Origin Shipment Destination: {shipment1.Destination.GetFullAddress()}");
-                Console.WriteLine($"Copied Shipment Destination: {shipment2.Destination.GetFullAddress()}");//Both shipments share the same destination object, so changes made to the destination of one shipment will affect the other shipment's destination as well.
-                
+            //// 8. Remove shipment
+            //Console.WriteLine("\nEnter Tracking Code to Remove:");
+            //string removeCode = Console.ReadLine();
+
+            //bool removed = center.RemoveShipment(removeCode);
+
+            //if (removed)
+            //{
+            //    Console.WriteLine("Shipment Removed Successfully.");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Shipment Not Found.");
+            //}
+
+
+            //// 9. Print remaining shipments
+            //Console.WriteLine("\n========== REMAINING SHIPMENTS ==========");
+            //center.PrintAllShipments();
+            //Shipment shipment1 = new StandardShipment("STD-001", "Books", 2, 50.0m);
+            ////create a copy of the shipment using the CopyShipment method
+            //Shipment shipment2 = shipment1.CopyShipment();
+            //Console.WriteLine($"Original Shipment: {shipment1.PrintShipmentDetails()}");
+            //Console.WriteLine($"Copied Shipment: {shipment2.PrintShipmentDetails()}");
+            //shipment2.TrackingCode = "STD-002";
+            //Console.WriteLine($"After changing the tracking code of the copied shipment: {shipment2.TrackingCode}");
+            //Console.WriteLine($"After changing the tracking code of the copied shipment: {shipment1.TrackingCode}");
+
+
+            //Shipment shipment1 = new StandardShipment("STD-001", "Books", 2, 50.0m);
+            //shipment1.Destination = new DeliveryAddress("Los Angeles", "Sunset Blvd", 123);
+            ////create a shallow copy of the shipment using the ShallowCopy method
+            //Shipment shipment2 = shipment1.ShallowCopy();
+            //Console.WriteLine(ReferenceEquals(shipment1, shipment2)); // Output: False
+            //Console.WriteLine(ReferenceEquals(shipment1.Destination, shipment2.Destination)); // Output: True
+            //Console.WriteLine($"Original Shipment Destination: {shipment1.Destination.GetFullAddress()}");
+            //Console.WriteLine($"Copied Shipment Destination: {shipment2.Destination.GetFullAddress()}");
+            //shipment2.Destination.City = "San Francisco";
+            //shipment2.Destination.BuildingNumber = 456;
+            //shipment2.Destination.Street = "Market St";
+            //Console.WriteLine($"Origin Shipment Destination: {shipment1.Destination.GetFullAddress()}");
+            //Console.WriteLine($"Copied Shipment Destination: {shipment2.Destination.GetFullAddress()}");//Both shipments share the same destination object, so changes made to the destination of one shipment will affect the other shipment's destination as well.
+
+            Shipment shipment1 = new StandardShipment("STD-001", "Books", 2, 50.0m);
+            shipment1.Destination = new DeliveryAddress("Cairo");
+            Shipment shipment2 = shipment1.DeepCopy();
+            Console.WriteLine($"Before Change.....\nOriginal Shipment Destination: {shipment1.Destination.GetFullAddress()}\n Copied Shipment Destination: {shipment2.Destination.GetFullAddress()}");
+            Console.WriteLine(ReferenceEquals(shipment1, shipment2)); // Output: False
+            Console.WriteLine(ReferenceEquals(shipment1.Destination, shipment2.Destination)); // Output: False
+            shipment2.Destination = new DeliveryAddress("Giza");
+            Console.WriteLine($"After Change.....\nOriginal Shipment Destination: {shipment1.Destination.GetFullAddress()}\n Copied Shipment Destination: {shipment2.Destination.GetFullAddress()}");
+            Console.WriteLine(ReferenceEquals(shipment1.Destination, shipment2.Destination)); // Output: False
         }
     }
         #endregion
