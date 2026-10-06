@@ -1,20 +1,24 @@
 ﻿namespace OOP_5
 {
-    
-        #region Part1: Theoritical Questions
-        //Part1: Theoritical
-        //Question1:
-        //a) 
-        //b)
-        //Question2:
-        //a)
-        //b)
-        #endregion
 
-        #region Part2: Practical Questions
+    #region Part1: Theoritical Questions
+    //Part1: Theoritical
+    //Question1:
+    //a)The value of the first object variable is copied into the other as a value not as a refernce address
+    //b)No, It creates a new refernce that refers to the same object in heap but it doesnt create a new object
+    //c)Copying an object is copying its value and assigning it to another object variable while copying its reference is copying its address to the other object variable
+    //Question2:
+    //a)A Shallow copy is a copy of the object that shares references to the same objects in memory and the copy and the original are not independent(REFERENCE TYPES)
+    //b)A deep copy creates a new object and copies all the values and references to new objects in memory and the copy and the original are completely independent
+    //c)When a shallow copy is made, changes made to the original object will affect the copy and vice versa. 
+    //d)When a deep copy is made, changes made to the original object will not affect the copy and vice versa.
+    //e) when you need to modify nested mutable data inside a cloned structure without accidentally changing the values in the original data source
+    #endregion
 
-        #region DeliveryAdress Class
-        public struct DeliveryAddress
+    #region Part2: Practical Questions
+
+    #region DeliveryAdress Class
+    public struct DeliveryAddress
         {
             string City;
             string Street;
