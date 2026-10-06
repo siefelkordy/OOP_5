@@ -18,30 +18,31 @@
     #region Part2: Practical Questions
 
     #region DeliveryAdress Class
-    public struct DeliveryAddress
+    public class DeliveryAddress
+    {
+        public string City { get; set; }
+        public string Street { get; set; }
+        public int BuildingNumber { get; set; }
+
+        public DeliveryAddress(string city, string street, int buildingNumber)
         {
-            string City;
-            string Street;
-            int BuildingNumber;
-            public DeliveryAddress(string city, string street, int buildingNumber)
-            {
-                City = city;
-                Street = street;
-                BuildingNumber = buildingNumber;
-            }
-            public DeliveryAddress(string street)
-            {
-                Street = street;
-                City = "New York";
-                BuildingNumber = 1;
-            }
-            public string GetFullAddress()
-            {
-                return $"{BuildingNumber} {Street} ,{City}";
-            }
-
-
+            City = city;
+            Street = street;
+            BuildingNumber = buildingNumber;
         }
+
+        public DeliveryAddress(string street)
+        {
+            Street = street;
+            City = "New York";
+            BuildingNumber = 1;
+        }
+
+        public string GetFullAddress()
+        {
+            return $"{BuildingNumber} {Street} ,{City}";
+        }
+    }
         #endregion
 
         #region Shipment Class (Parent Class)
@@ -202,6 +203,12 @@
             {
             return new Shipment(this.trackingCode, this.description, this.weight, this.deliveryFee);
             }
+            //Shallow Copy Method
+            public Shipment ShallowCopy()
+            {
+            return (Shipment)this.MemberwiseClone();
+            }
+
     }
     #endregion
 
@@ -688,17 +695,30 @@
                 //// 9. Print remaining shipments
                 //Console.WriteLine("\n========== REMAINING SHIPMENTS ==========");
                 //center.PrintAllShipments();
+                //Shipment shipment1 = new StandardShipment("STD-001", "Books", 2, 50.0m);
+                ////create a copy of the shipment using the CopyShipment method
+                //Shipment shipment2 = shipment1.CopyShipment();
+                //Console.WriteLine($"Original Shipment: {shipment1.PrintShipmentDetails()}");
+                //Console.WriteLine($"Copied Shipment: {shipment2.PrintShipmentDetails()}");
+                //shipment2.TrackingCode = "STD-002";
+                //Console.WriteLine($"After changing the tracking code of the copied shipment: {shipment2.TrackingCode}");
+                //Console.WriteLine($"After changing the tracking code of the copied shipment: {shipment1.TrackingCode}");
+                
+            
                 Shipment shipment1 = new StandardShipment("STD-001", "Books", 2, 50.0m);
-                //create a copy of the shipment using the CopyShipment method
-                Shipment shipment2 = shipment1.CopyShipment();
-                Console.WriteLine($"Original Shipment: {shipment1.PrintShipmentDetails()}");
-                Console.WriteLine($"Copied Shipment: {shipment2.PrintShipmentDetails()}");
-                shipment2.TrackingCode = "STD-002";
-                Console.WriteLine($"After changing the tracking code of the copied shipment: {shipment2.TrackingCode}");
-                Console.WriteLine($"After changing the tracking code of the copied shipment: {shipment1.TrackingCode}");
-
-
-
+                shipment1.Destination = new DeliveryAddress("Los Angeles", "Sunset Blvd", 123);
+                //create a shallow copy of the shipment using the ShallowCopy method
+                Shipment shipment2 = shipment1.ShallowCopy();
+                Console.WriteLine(ReferenceEquals(shipment1, shipment2)); // Output: False
+                Console.WriteLine(ReferenceEquals(shipment1.Destination, shipment2.Destination)); // Output: True
+                Console.WriteLine($"Original Shipment Destination: {shipment1.Destination.GetFullAddress()}");
+                Console.WriteLine($"Copied Shipment Destination: {shipment2.Destination.GetFullAddress()}");
+                shipment2.Destination.City = "San Francisco";
+                shipment2.Destination.BuildingNumber = 456;
+                shipment2.Destination.Street = "Market St";
+                Console.WriteLine($"Origin Shipment Destination: {shipment1.Destination.GetFullAddress()}");
+                Console.WriteLine($"Copied Shipment Destination: {shipment2.Destination.GetFullAddress()}");//Both shipments share the same destination object, so changes made to the destination of one shipment will affect the other shipment's destination as well.
+                
         }
     }
         #endregion
